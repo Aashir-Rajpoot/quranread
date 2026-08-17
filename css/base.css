@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Amiri+Quran&family=Lora:ital@0;1&display=swap');
+
+:root{
+  /* ---- palette ---- */
+  --ink:#0E3B2E;
+  --ink-2:#123527;
+  --ink-3:#1B4A38;
+  --gold:#B8912B;
+  --gold-soft:#D9BC6C;
+  --cream:#FBF8F1;
+  --cream-2:#F3ECDD;
+  --paper-line:#E4DFCF;
+  --text:#1C201D;
+  --muted:#6B7570;
+  --danger:#A23B2E;
+  --ok:#3B7A4E;
+
+  --radius-arch: 22px 22px 6px 6px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --shadow-1: 0 1px 2px rgba(14,59,46,.06), 0 6px 20px rgba(14,59,46,.06);
+  --shadow-2: 0 8px 30px rgba(14,59,46,.14);
+
+  --font-display:'Fraunces', serif;
+  --font-ui:'Inter', system-ui, -apple-system, sans-serif;
+  --font-arabic:'Amiri Quran', 'Scheherazade New', serif;
+  --font-translation:'Lora', 'Inter', serif;
+
+  --arabic-size: 30px;
+  --arabic-line: 2.35;
+  --translation-size: 16px;
+  --reader-width: 720px;
+
+  --header-h: 60px;
+  --player-h: 74px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:var(--font-ui);
+  color:var(--text);
+  background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;font-weight:600;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-ui);cursor:pointer}
+ul{list-style:none;margin:0;padding:0}
+img,svg{display:block;max-width:100%}
+input,select,textarea{font-family:var(--font-ui)}
+
+:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:2px;
+  border-radius:4px;
+}
+
+.visually-hidden{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+::selection{ background: var(--gold-soft); color:var(--ink); }
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--paper-line);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-soft)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+/* ---------- App shell ---------- */
+#app{min-height:100vh;display:flex;flex-direction:column}
+
+.skip-link{
+  position:absolute;top:-48px;left:8px;background:var(--ink);color:#fff;
+  padding:10px 16px;border-radius:8px;z-index:200;transition:top .15s;
+}
+.skip-link:focus{top:8px}
+
+.page{
+  flex:1;
+  width:100%;
+  padding-bottom: calc(var(--player-h) + 16px);
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ---------- loading / skeleton ---------- */
+.skel{
+  background:linear-gradient(90deg,var(--cream-2) 25%,#fff 37%,var(--cream-2) 63%);
+  background-size:400% 100%;
+  animation: skel-shimmer 1.4s ease infinite;
+  border-radius:8px;
+}
+@keyframes skel-shimmer{
+  0%{background-position:100% 50%}
+  100%{background-position:0 50%}
+}
+
+.spinner{
+  width:22px;height:22px;border-radius:50%;
+  border:2.5px solid var(--paper-line);
+  border-top-color:var(--gold);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.state-block{
+  text-align:center;
+  padding:48px 20px;
+  color:var(--muted);
+}
+.state-block .glyph{font-size:34px;margin-bottom:10px;opacity:.8}
+.state-block h3{font-family:var(--font-ui);font-size:16px;color:var(--text);margin-bottom:6px}
+.state-block p{font-size:14px;max-width:360px;margin:0 auto}
+.state-block .retry-btn{
+  margin-top:16px;padding:9px 18px;border-radius:999px;border:1px solid var(--ink);
+  background:transparent;color:var(--ink);font-size:13px;font-weight:600;
+}
+.state-block .retry-btn:hover{background:var(--ink);color:#fff}
+
+.toast-wrap{
+  position:fixed;left:50%;bottom:calc(var(--player-h) + 20px);transform:translateX(-50%);
+  z-index:500;display:flex;flex-direction:column;gap:8px;align-items:center;
+  pointer-events:none;
+}
+.toast{
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;
+  font-size:13.5px;box-shadow:var(--shadow-2);
+  animation:toast-in .18s ease;
+}
+@keyframes toast-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
